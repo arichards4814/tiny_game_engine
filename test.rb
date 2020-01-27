@@ -1,5 +1,9 @@
 require_relative './config/environment.rb'
 
+## USE THIS FILE FOR TESTING YOUR GAME
+## USEFUL FOR SETTING UP SCENARIOS AND MAKING
+## SURE EVERYTHING IS WORKING
+
 
 turns = 0
 initialize_menus
