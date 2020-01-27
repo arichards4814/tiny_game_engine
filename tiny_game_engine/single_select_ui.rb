@@ -2,25 +2,25 @@ class SingleSelectUI < UI
     
     @@selected = ""
 
-def initialize(menu_title)
-        super
-        @chosen = []
-        @village_chosen = ""
-end
+    def initialize(menu_title)
+            super
+            @chosen = []
+            @menu_type = "singleselect"
+    end
 
 ##Defaults to a Vertical Menu
 ##Can support unlimited items
-def self.selected
-    @@selected
-end
+    def self.selected
+        @@selected
+    end
 
-def visual 
-            i = 0
-            while i < (menu_items.count)
-                
-                puts "   #{menu_items[i]}"
-                i += 1
-            end 
+    def visual 
+                i = 0
+                while i < (menu_items.count)
+                    
+                    puts "   #{menu_items[i]}"
+                    i += 1
+                end 
     end
 
 def prompt(new_menu_items)
@@ -68,8 +68,8 @@ def prompt(new_menu_items)
                 input = input.to_i
                 make_one_choice(input)
             end
-        end
 end
+
 
 
     def make_one_choice(num_input)
@@ -95,3 +95,8 @@ end
         end
     end
 
+    def clear_all_selected
+        @@selected == ""
+    end
+
+end

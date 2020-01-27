@@ -4,6 +4,7 @@ class MultiSelectUI < UI
     
     def initialize(menu_title)
         super
+        @menu_type = "multiselect"
     end
 
     def self.selected
@@ -65,9 +66,11 @@ class MultiSelectUI < UI
             if @@selected == nil || @selected == []
                 self.prompt(new_menu_items)
             end
-            @@selected
+            final_selected = @@selected #need to do this so selected is cleared for next turn
+            clear_menu_choices
+            return final_selected 
         elsif input == "clear"
-            clear_choices
+            clear_choices(new_menu_items)
         elsif input == "" && @@selected.count > 0
             @@selected
         elsif input.to_i > menu_items.count || input.to_i == 0
@@ -106,6 +109,7 @@ def update_menu_items(new_items_array)
         new_items_array.each_with_index do |new_item, index|
             @menu_items[index] = "[#{index + 1}] - #{new_item}"
         end
+        binding.pry
     end
 end
 
@@ -113,12 +117,25 @@ def clear_menu_items
         @menu_items = []
 end
 
-def clear_choices
-    self.menu_items = self.menu_items.map do |item|
+def clear_choices(new_items_array)
+    new_items_array = new_items_array.map do |item|
+        binding.pry
         item = item.black
     end
     @@selected = []
-    self.prompt
+    self.prompt(new_items_array)
+end
+
+def clear_menu_choices
+    binding.pry
+    self.menu_items = self.menu_items.map do |item|
+        binding.pry
+        if item == "" || item == nil
+        else
+        item = item.split(" - ")[1].black
+        end
+    end
+    @@selected = []
 end
 
 end

@@ -1,9 +1,6 @@
 require_relative '../config/environment.rb'
 
 
-
-
-
 module Menus
 
 def initialize_menus
@@ -21,7 +18,7 @@ def initialize_menus
 
     select_menu_test = MultiSelectUI.new("select_menu_test")
     select_menu_test.menu_items =["[1] - Create a Dragon", "[2] - View Dragons      ", "[3] - Check Human Population", "       [4] - Create a Raid", "    [5] - Pass", "[6] - Help"]
-    select_menu_test.header = ""
+    select_menu_test.header = "Turn #{GameEvent.gameclock}"
     select_menu_test.body = "           Number of Dragons:".blue
     select_menu_test.has_border = true
     select_menu_test.has_divider = true
@@ -30,12 +27,14 @@ def initialize_menus
 
     one_choice_menu = SingleSelectUI.new("one_choice_menu")
     one_choice_menu.menu_items =["[1] - Create a Dragon", "[2] - View Dragons      ", "[3] - Check Human Population", "       [4] - Create a Raid", "    [5] - Pass", "[6] - Help"]
-    one_choice_menu.header = ""
+    one_choice_menu.header = "Turn #{GameEvent.gameclock}"
     one_choice_menu.body = "           Number of Dragons:".blue
     one_choice_menu.has_border = true
     one_choice_menu.has_divider = true
     one_choice_menu.border_type = "dash-lg"
     one_choice_menu.parent_menu = select_menu_test
+
+    ## Save menu variables
 
     ## Build your Menu Logic Here
     array = ["Hello", "Goodbye"]
@@ -47,11 +46,28 @@ def initialize_menus
 end
 
 def refresh_menus
-    UI.all.each do |menu|
-        menu.header = menu.header
-        menu.body = menu.body
-    end
+    
+    main_menu_ui = UI.find_menu("main_menu_ui")
+    select_menu_test = UI.find_menu("select_menu_test")
+    one_choice_menu = UI.find_menu("one_choice_menu")
+
+    main_menu_ui.header = "                               MAIN MENU : Turn #{GameEvent.gameclock}"
+    select_menu_test.header = "Turn #{GameEvent.gameclock}"
+    select_menu_test.header = "Turn #{GameEvent.gameclock}"
+    one_choice_menu.header = "Turn #{GameEvent.gameclock}"
+    
+     #clears anything that was selected in the previous turn
+     #rebuild any logic that has different variables each turn
+    array = ["Hello", "Goodbye"]
+    select_menu_lambda = lambda {select_menu_test.prompt(array)}
+        
+    main_menu_ui.set_logic(select_menu_lambda)
+    binding.pry
+    UI.clear_all_selected
+    binding.pry
 end
+
+
 
 
 end

@@ -3,7 +3,7 @@ class GameTrigger
 ## class to store conditions to where the game state will change
 ## initializes with a variable that will be checked against an integer
 ## once that condition is met the method_on_met will run
-attr_accessor :check_variable, :condition_as_string, :int_to_compare, :method_on_met
+attr_accessor :check_variable, :condition_as_string, :int_to_compare, :method_on_met, :victory_message, :loss_message
 
 @@all = []
 def initialize(check_variable, condition_as_string, int_to_compare, method_on_met)
@@ -39,6 +39,17 @@ def update_gamestate
         if @check_variable == false
             @method_on_met.call
         end
+    end
+end
+
+def self.update_all_gamestates
+
+    #cycles through all gamestates 
+    #checks if their conditions are met
+    #if they are, this will update the gamestate
+
+    GameTrigger.all.each |trigger|
+        trigger.update_gamestate
     end
 end
 

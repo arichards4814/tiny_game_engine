@@ -4,6 +4,7 @@ def initialize(menu_title)
     super
     @menu_items = ["[1] - Yes", "[2] - No"]
     @logic = [true, false]
+    @menu_type == "yesorno"
 end
 
 

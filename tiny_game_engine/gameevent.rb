@@ -5,13 +5,13 @@ require 'pry'
 
 class GameEvent
 
-attr_accessor  :event_object, :week, :display, :color
+attr_accessor  :event_object, :turn, :display, :color
 
 @@gameclock = 1
 @@all = []
-def initialize(event_object, week, display, color = nil)
+def initialize(event_object, turn, display, color = nil)
     @event_object = event_object
-    @week = week
+    @turn = turn
     if event_object
     @display = "#{event_object.name}" + " " + display
     else
@@ -37,15 +37,15 @@ def self.all
     @@all
 end
 
-def self.weeks_events(week)
+def self.turns_events(turn)
     @@all.select do |event|
-        week == event.week
+        turn == turn.turn
     end
 end
 
-def self.weeks_summary(week)
+def self.turns_summary
     
-    weeks_events(week).each do |event|
+    turns_events(GameEvent.gameclock).each do |event|
         if event.event_object.class == Method
             event.event_object.call
             return

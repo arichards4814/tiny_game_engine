@@ -6,14 +6,16 @@ class UI
 
     attr_accessor :visual, :menu_items, :logic, :body, :header, :response, :final_output,
     :has_border, :border_type, :border_visual, :has_divider, :question_prompt, :return_value, :get_return_value, :parent_menu,
-    :layout_type, :menu_items_unlocked, :menu_title
+    :layout_type, :menu_items_unlocked, :menu_title, :menu_type
     
 
     @@all = []
+    @@menu_variables = []
 
     def initialize(menu_title)
         @menu_title = menu_title
         @menu_items = []
+        @menu_type = "custom"
         @visual = ""
         @logic = []
         @has_border = false
@@ -23,6 +25,10 @@ class UI
 
     def self.all
         @@all
+    end
+
+    def self.menu_variables 
+        @@menu_variables
     end
 
     def visual 
@@ -421,12 +427,27 @@ class UI
     end
 
 
-
     def self.start_menu(menu)
         selected_menu = UI.all.find do |item|
             item.menu_title == menu
         end
         selected_menu.prompt
+    end
+
+    def self.find_menu(string)
+        UI.all.find do |menu|
+            menu.menu_title == string
+        end
+    end
+
+    def self.clear_all_selected
+        UI.all.each do |menu|
+            if menu.menu_type == "multiselect"
+                menu.clear_menu_choices
+            elsif menu.menu_type == "singleselect" || menu.menu_type == "yesorno"
+                menu.clear_all_selected
+            end
+        end
     end
 
     

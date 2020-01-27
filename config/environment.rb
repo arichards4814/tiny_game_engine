@@ -11,3 +11,4 @@ require_relative '../lib/menu_builder.rb'
 require 'colorize'
 require 'pry'
 include Menus
+include GameState

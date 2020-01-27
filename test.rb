@@ -6,15 +6,18 @@ initialize_menus
 
 while turns < 20
     
-    # need a way of updating menus here (currently not working.)
-    refresh_menus
- ## from menus.rb module menus
+    
+refresh_menus #updates our menus to show the most up to date info
+
+
+
 UI.start_menu("main_menu_ui") ##starts up your first menu by name
 
 
+##here going to have to clear anything that is selected
 GameEvent.increment_game_clock(1)
+
 turns += 1
-binding.pry
 end
 
 
